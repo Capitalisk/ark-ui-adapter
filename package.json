@@ -1,0 +1,31 @@
+{
+  "name": "ark-ui-adapter",
+  "version": "4.3.0",
+  "description": "Ark client adapter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Capitalisk/ark-ui-adapter.git"
+  },
+  "keywords": [
+    "ui",
+    "ark",
+    "adapter",
+    "blockchain"
+  ],
+  "author": "Maarten Coppens",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Capitalisk/ark-ui-adapter/issues"
+  },
+  "homepage": "https://github.com/Capitalisk/ark-ui-adapter#readme",
+  "dependencies": {
+    "@ardenthq/sdk-cryptography": "^1.2.1",
+    "@arkecosystem/crypto": "^3.5.2",
+    "axios": "^0.21.1",
+    "bip39": "^3.0.4"
+  }
+}
