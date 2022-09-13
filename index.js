@@ -3,10 +3,23 @@ const { Identities, Transactions } = require('@arkecosystem/crypto');
 const bip39 = require('bip39');
 
 const DEFAULT_API_MAX_PAGE_SIZE = 100;
+const DEFAULT_API_URL = 'https://api.ark.io/api';
+const ARK_TRANSFER_TYPES = {
+  0: 'transfer',
+  1: 'second signiture',
+  2: 'delegate registration',
+  3: 'vote',
+  4: 'multisig registration',
+  5: 'ipfs transaction',
+  6: 'multipayment',
+  7: 'delegate resignation',
+  8: 'htlc',
+  9: 'entitiy',
+};
 
 class ArkAdapter {
   constructor(options) {
-    this.apiURL = options.apiURL;
+    this.apiURL = options.apiURL || DEFAULT_API_URL;
     this.apiMaxPageSize = options.apiMaxPageSize || DEFAULT_API_MAX_PAGE_SIZE;
   }
 
@@ -45,7 +58,11 @@ class ArkAdapter {
   }
 
   async createWallet() {
-    return await bip39.generateMnemonic();
+    const passphrase = bip39.generateMnemonic();
+    return {
+      passphrase,
+      address: await this.getAddressFromPassphrase({ passphrase }),
+    };
   }
 
   async getAddressFromPassphrase({ passphrase }) {
@@ -67,9 +84,23 @@ class ArkAdapter {
   }) {
     return (
       await axios.get(
-        `${this.apiURL}/transactions?senderId=${address}&limit=${limit}&page=1`,
+        `${this.apiURL}/transactions?senderId=${address}&limit=${limit}&page=1&orderBy=timestamp:desc`,
       )
-    ).data.data;
+    ).data.data.map((txn) => ({
+      id: txn.id,
+      type: ARK_TRANSFER_TYPES[txn.type],
+      recipientAddress: txn.recipient,
+      amount: txn.amount,
+      fee: txn.fee,
+      timestamp: txn.timestamp.unix,
+      message: txn.vendorField || '',
+      senderAddress: txn.sender,
+      // TODO: Is this from the sender or recipient?
+      sigPublicKey: txn.senderPublicKey,
+      blockId: txn.blockId,
+      nonce: txn.nonce,
+      signature: txn.signature,
+    }));
   }
 
   async getAccountNextKeyIndex({ address }) {

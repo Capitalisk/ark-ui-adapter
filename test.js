@@ -17,7 +17,7 @@ const adapter = new ArkAdapter({
       'warfare grocery replace donor park void begin math woman latin body life',
   });
 
-  const passphrase = await adapter.createWallet();
+  const { passphrase, address } = await adapter.createWallet();
 
   console.log(passphrase);
   console.log(await adapter.getAddressFromPassphrase({ passphrase }));
