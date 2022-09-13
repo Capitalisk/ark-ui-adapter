@@ -78,31 +78,6 @@ class ArkAdapter {
     await axios.post(`${this.apiURL}/transactions`, transaction);
   }
 
-  async getLatestOutboundTransactions({
-    address,
-    limit = DEFAULT_API_MAX_PAGE_SIZE,
-  }) {
-    return (
-      await axios.get(
-        `${this.apiURL}/transactions?senderId=${address}&limit=${limit}&page=1&orderBy=timestamp:desc`,
-      )
-    ).data.data.map((txn) => ({
-      id: txn.id,
-      type: ARK_TRANSFER_TYPES[txn.type],
-      recipientAddress: txn.recipient,
-      amount: txn.amount,
-      fee: txn.fee,
-      timestamp: txn.timestamp.unix,
-      message: txn.vendorField || '',
-      senderAddress: txn.sender,
-      // TODO: Is this from the sender or recipient?
-      sigPublicKey: txn.senderPublicKey,
-      blockId: txn.blockId,
-      nonce: txn.nonce,
-      signature: txn.signature,
-    }));
-  }
-
   async getAccountNextKeyIndex({ address }) {
     return await this.getNonce({ address });
   }
