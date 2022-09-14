@@ -1,14 +1,14 @@
 {
-  "name": "ark-ui-adapter",
+  "name": "ldex-ui-ark-adapter",
   "version": "4.3.0",
-  "description": "Ark client adapter",
+  "description": "Ark DEX UI adapter",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Capitalisk/ark-ui-adapter.git"
+    "url": "git+https://github.com/Capitalisk/ldex-ui-ark-adapter.git"
   },
   "keywords": [
     "ui",
@@ -19,9 +19,9 @@
   "author": "Maarten Coppens",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Capitalisk/ark-ui-adapter/issues"
+    "url": "https://github.com/Capitalisk/ldex-ui-ark-adapter/issues"
   },
-  "homepage": "https://github.com/Capitalisk/ark-ui-adapter#readme",
+  "homepage": "https://github.com/Capitalisk/ldex-ui-ark-adapter#readme",
   "dependencies": {
     "@ardenthq/sdk-cryptography": "^1.2.1",
     "@arkecosystem/crypto": "^3.5.2",
