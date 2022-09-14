@@ -4,18 +4,6 @@ const bip39 = require('bip39');
 
 const DEFAULT_API_MAX_PAGE_SIZE = 100;
 const DEFAULT_API_URL = 'https://api.ark.io/api';
-const ARK_TRANSFER_TYPES = {
-  0: 'transfer',
-  1: 'second signiture',
-  2: 'delegate registration',
-  3: 'vote',
-  4: 'multisig registration',
-  5: 'ipfs transaction',
-  6: 'multipayment',
-  7: 'delegate resignation',
-  8: 'htlc',
-  9: 'entitiy',
-};
 
 class ArkAdapter {
   constructor(options) {
