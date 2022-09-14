@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { Identities, Transactions, Managers } = require('@arkecosystem/crypto');
 const bip39 = require('bip39');
+const crypto = require('crypto');
 
 const DEFAULT_API_MAX_PAGE_SIZE = 100;
 const DEFAULT_API_URL = 'https://api.ark.io/api';
@@ -64,13 +65,17 @@ class ArkAdapter {
       privateKey,
     });
 
-    // Serialize it for the Ark DEX adapter.
-    transaction.data.senderAddress = transaction.data.senderId;
+    // Serialize the transaction for the Ark DEX adapter.
+    transaction.data.senderAddress = this.address;
     transaction.data.recipientAddress = transaction.data.recipientId;
     transaction.data.amount = transaction.data.amount.toString();
     transaction.data.fee = transaction.data.fee.toString();
     transaction.data.message = transaction.data.vendorField || '';
     transaction.data.nonce = transaction.data.nonce.toString();
+    transaction.data.originalId = transaction.data.id;
+    transaction.data.id = crypto.createHash('sha256')
+      .update(`${transaction.data.senderAddress}-${transaction.data.nonce}`)
+      .digest('hex');
 
     return transaction.data;
   }
