@@ -1,6 +1,6 @@
 {
   "name": "ldex-ui-ark-adapter",
-  "version": "4.3.2",
+  "version": "4.3.3",
   "description": "Ark DEX UI adapter",
   "main": "index.js",
   "scripts": {
