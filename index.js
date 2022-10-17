@@ -11,6 +11,7 @@ class ArkAdapter {
     this.apiURL = options.apiURL || DEFAULT_API_URL;
     this.apiMaxPageSize = options.apiMaxPageSize || DEFAULT_API_MAX_PAGE_SIZE;
 
+    Managers.configManager.setFromPreset(options.env || 'devnet');
     // Needs to be set to a height which supports version 2 transactions.
     Managers.configManager.setHeight(20000000);
   }
